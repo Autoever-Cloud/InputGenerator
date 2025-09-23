@@ -5,6 +5,7 @@ import time
 import random
 import sys
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 def generate_http_request_log():
     """HTTP 요청에 대한 JSON 로그를 생성합니다."""
@@ -18,7 +19,7 @@ def generate_http_request_log():
         k=1)[0]
 
     log_entry = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp" = datetime.now(ZoneInfo("Asia/Seoul")).isoformat(),
         "sourceIP": f"{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}",
         "API": random.choice(apis),
         "result": status_code
