@@ -18,7 +18,7 @@ def generate_http_request_log():
         k=1)[0]
 
     log_entry = {
-        "timestamp" = datetime.now(timezone(timedelta(hours=9))),  # 한국 시간 (UTC+9)
+        "timestamp" : datetime.now(timezone(timedelta(hours=9))),  # 한국 시간 (UTC+9)
         "sourceIP": f"{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}",
         "API": random.choice(apis),
         "result": status_code
