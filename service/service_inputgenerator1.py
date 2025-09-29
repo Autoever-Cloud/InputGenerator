@@ -63,4 +63,4 @@ def log_loop():
 
 if __name__ == "__main__":
     threading.Thread(target=log_loop, daemon=True).start()
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=8080, access_log=False)
