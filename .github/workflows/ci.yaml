@@ -1,4 +1,4 @@
-name: InputGenerator CI flow 
+name: InputGenerator CI Flow
 
 on:
   push:
@@ -9,35 +9,32 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Login to Dockerhub
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{secrets.DOCKERHUB_USERNAME}}
-          password: ${{secrets.DOCKERHUB_TOKEN}}
-      
-      - name: Build and Push Docker Image
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push Service InputGen
         env:
-          NAME: ${{secrets.DOCKERHUB_USERNAME}}
+          NAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          docker build -t $NAME/inputgen0:latest -f Dockerfile0 .
+          docker build -t $NAME/inputgen0:latest ./service
           docker push $NAME/inputgen0:latest
 
-          docker build -t $NAME/inputgen1:latest -f Dockerfile1 .
-          docker push $NAME/inputgen1:latest
-
-          docker build -t $NAME/inputgen2:latest -f Dockerfile2 .
-          docker push $NAME/inputgen2:latest
-
-          docker build -t $NAME/inputgen3:latest -f Dockerfile3 .
-          docker push $NAME/inputgen3:latest
-
-          docker build -t $NAME/inputgen4:latest -f Dockerfile4 .
+      - name: Build & Push Auth InputGen
+        env:
+          NAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          docker build -t $NAME/inputgen4:latest ./auth
           docker push $NAME/inputgen4:latest
 
-          docker build -t $NAME/inputgen5:latest -f Dockerfile5 .
+      - name: Build & Push Kmsg InputGen
+        env:
+          NAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          docker build -t $NAME/inputgen5:latest ./kmsg
           docker push $NAME/inputgen5:latest
-
