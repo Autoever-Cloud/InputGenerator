@@ -9,10 +9,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 4. 소스 코드 복사
-COPY service_inputgenerator1.py .
+COPY service_inputgenerator.py .
 
 # 5. 포트 노출
 EXPOSE 8080
 
 # 6. 실행 커맨드
-CMD ["python", "service_inputgenerator1.py"]
+CMD ["python", "service_inputgenerator.py"]
