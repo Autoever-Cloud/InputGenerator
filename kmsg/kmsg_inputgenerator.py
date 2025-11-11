@@ -1,5 +1,3 @@
-# kmsg_inputgenerator6.py
-
 import json
 import random
 import socket
@@ -14,7 +12,6 @@ MIN_TERM = 0.5
 MAX_TERM = 2.0
 
 
-# ✅ Prometheus 메트릭 정의
 kmsg_total = Counter(
     'kmsg_total',
     'Total number of kernel/system logs generated',
@@ -57,7 +54,6 @@ def generate_log(seq):
     priority = random.choices(list(PRIORITY_WEIGHTS.keys()), weights=PRIORITY_WEIGHTS.values())[0]
     message = random.choice(MESSAGE_TEMPLATES[priority])
 
-    # 📊 메트릭 업데이트
     kmsg_total.labels(priority=PRIORITY_MAP[priority]).inc()
 
     log = {

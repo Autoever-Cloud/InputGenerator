@@ -1,5 +1,3 @@
-# service_inputgenerator1.py
-
 import json
 import time
 import random
@@ -13,7 +11,6 @@ import uvicorn
 MAX_TERM, MIN_TERM = 1, 3
 RATE_SUCCESS, RATE_WARN, RATE_ERR = 0.95, 0.03, 0.02
 
-# ✅ Prometheus 메트릭 정의
 http_requests_total = Counter(
     'http_requests_total',
     'Total number of HTTP requests',
@@ -39,10 +36,9 @@ def generate_http_request_log():
     status_code = random.choices([200, 404, 502], weights=[RATE_SUCCESS, RATE_WARN, RATE_ERR])[0]
     api = random.choice(apis)
 
-    # 📊 메트릭 업데이트
     http_requests_total.labels(status=str(status_code), api=api).inc()
     with http_request_latency_seconds.labels(api=api).time():
-        time.sleep(random.uniform(0.05, 0.2))  # 가짜 처리 시간
+        time.sleep(random.uniform(0.05, 0.2))  
 
     log_entry = {
         "timestamp": datetime.now(timezone(timedelta(hours=9))).isoformat(),
